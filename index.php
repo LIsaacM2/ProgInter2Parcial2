@@ -61,7 +61,7 @@ function deleteUser($user, $conn){
                             <button type="submit" class="btn btn-secondary" name="btnSearch" onclick="<?php isset($_POST['search']) ? $search=$_POST['search'] : $search = ''; ?>">Buscar</button>
                         </div>
                         <?php
-                        if ($_SESSION['user']=='Luis_Isaac' and isset($_POST['search']) && $_POST['search']!='') {                        
+                        if ($_SESSION['user']=='Luis_Isaac' && isset($_POST['search']) && $_POST['search']!='') {                        
                             echo '<div class="col-md-1">
                                 <button class="btn btn-danger" name="btnDelete">Borrar</button>
                             </div>';
@@ -75,5 +75,30 @@ function deleteUser($user, $conn){
             </div>
         </div>
     </div>
+    
+    <div id="content">
+        <?php
+            $query = "CALL LIMMshowUsers();";
+            $dataSet = mysqli_query($db, $query);
+        ?>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">User</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+            <tbody>    
+        <?php
+            while($row = mysqli_fetch_assoc($dataSet)){
+                echo "<tr>";
+                    echo "<td>".$row['USER']."</td>";
+                    echo "<td>".$row['Description']."</td>";
+                echo "</tr>";
+            }
+        ?>
+            </tbody>
+            </table>
+    </div>    
 </body>
 </html>
